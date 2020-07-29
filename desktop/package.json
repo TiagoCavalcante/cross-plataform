@@ -1,0 +1,16 @@
+{
+	"name": "desktop",
+	"version": "1.0.0",
+	"main": "dist/main.js",
+	"scripts": {
+		"start": "electron .",
+		"build": "tsc"
+	},
+	"author": "Tiago Cavalcante Trindade <tiagotrindade111@gmail.com> (https://github.com/TiagoCavalcanteTrindade/)",
+	"license": "GPL-3.0-or-later",
+	"dependencies": {
+		"custom-electron-titlebar": "^3.2.3",
+		"electron": "^9.1.0",
+		"node-sass": "^4.14.1"
+	}
+}

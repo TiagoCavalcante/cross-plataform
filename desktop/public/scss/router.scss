@@ -1,0 +1,19 @@
+Router {
+	& > Route[path] {
+		display: none;
+
+		&.actualRoute {
+			display: block;
+		}
+	}
+}
+
+Navigator {
+	user-select: none;
+
+	& > ul {
+		display: flex;
+		justify-content: space-around;
+		margin-bottom: 15px;
+	}
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- css router -->
+	<link rel="stylesheet" href="css/router.css">
+	<!-- css switch -->
+	<link rel="stylesheet" href="css/switch.css">
+	<!-- css vars -->
+	<link rel="stylesheet" href="css/vars.css">
+	<!-- css all selector -->
+	<link rel="stylesheet" href="css/all.css">
+	<!-- css index -->
+	<link rel="stylesheet" href="css/index.css">
+</head>
+
+<body onload="onLoad()">
+	<main>
+		<Navigator>
+			<ul>
+				<li>
+					<button onclick="setRoute('')">Home</button>
+				</li>
+				<li>
+					<button onclick="setRoute('create_user')">Create user</button>
+				</li>
+				<li>
+					<button onclick="setRoute('update_user')">Update user</button>
+				</li>
+				<li>
+					<button onclick="reloadUsers()">Reload users</button>
+				</li>
+				<li>
+					Dark mode
+					<input id="is_dark_mode" type="checkbox" onchange="changeDarkMode(this.checked)" checked />
+				</li>
+			</ul>
+		</Navigator>
+
+		<Router>
+			<Route path="create_user">
+				<form onsubmit="createUser(); return false" style="border-bottom: 3px solid var(--autoThemeInverseColor); padding-bottom: 10; margin-bottom: 10">
+					<input id="create_user_name_input" maxLength=32 placeholder="User name" required />
+
+					<input id="create_user_email_input" type="email" maxlength=64 placeholder="email@email.com" required />
+
+					<input id="create_user_number_input" type="number" min=10000000 max=99999999999999 placeholder="999999999" required />
+
+					<button type="submit" style="background-color: #0F0; margin-top: 10">
+						Create user
+					</button>
+				</form>
+			</Route>
+
+			<Route path="update_user">
+				<form onsubmit="updateUser(); return false" style="border-bottom: 3px solid var(--autoThemeInverseColor); padding-bottom: 10; margin-bottom: 10">
+					<input type="number" id="update_user_id_input" min=0 placeholder="ID" required />
+
+					<input id="update_user_name_input" maxLength=32 placeholder="User name" required />
+
+					<input id="update_user_email_input" type="email" maxlength=64 placeholder="email@email.com" required />
+
+					<input id="update_user_number_input" type="number" min=10000000 max=99999999999999 placeholder="999999999" required />
+
+					<button type="submit" style="background-color: #0F0; margin-top: 10">
+						Update user
+					</button>
+				</form>
+			</Route>
+		</Router>
+
+		<ul id="user_list" style="display: block">
+			<li id="loading_users">
+				<p class="bigText" style="color: var(autoThemeInverseColor)">
+					Loading the users
+				</p>
+			</li>
+		</ul>
+	</main>
+
+	<script>
+		// includes
+		const { dialog } = require('electron').remote;
+		const customTitleBar = require('custom-electron-titlebar');
+
+		// show the titleBar
+		const titleBar = new customTitleBar.Titlebar({
+			shadow: false,
+			menu: false
+		});
+
+		const onLoad = () => {
+			const isDarkModeElement = document.getElementById('is_dark_mode');
+
+			// load color scheme from local storage
+			if (window.localStorage.getItem('colorScheme') === 'light')
+				isDarkModeElement.checked = false;
+
+			changeDarkMode(isDarkModeElement.checked);
+
+			loadUsers();
+		};
+
+		const changeDarkMode = (isDarkMode) => {
+			const style = document.documentElement.style;
+			const inputElements = Array.from(document.querySelectorAll('input:not([type=checkbox])'));
+
+			// change the colors
+			style.setProperty('--autoThemeColor', (isDarkMode) ? '#000' : '#FFF');
+			style.setProperty('--autoThemeInverseColor', (isDarkMode) ? '#FFF' : '#000');
+
+			// change the title bar color
+			titleBar.updateBackground((isDarkMode) ? customTitleBar.Color.BLACK : customTitleBar.Color.WHITE);
+
+			// change the inputs' background color
+			inputElements.forEach(element =>
+				element.style.backgroundColor = (isDarkMode) ? '#FFF' : '#CCC'
+			);
+
+			// save in the local storage
+			window.localStorage.setItem('colorScheme', (isDarkMode) ? 'dark' : 'light');
+		};
+	</script>
+	
+	<!-- external libraries -->
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<!-- router -->
+	<script src="js/router.js"></script>
+	<!-- scripts -->
+	<script src="js/createUser.js"></script>
+	<script src="js/deleteUser.js"></script>
+	<script src="js/loadUsers.js"></script>
+	<script src="js/reloadUsers.js"></script>
+	<script src="js/removeUsers.js"></script>
+	<script src="js/updateUser.js"></script>
+	<script src="js/userElement.js"></script>
+</body>
+
+</html>

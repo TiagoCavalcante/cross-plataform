@@ -1,0 +1,41 @@
+input[type=checkbox] {
+	position: relative;
+
+	cursor: pointer;
+
+	width: 40px;
+	height: 20px;
+
+	/* "appearance: none" doesn't work on Electron */
+	-webkit-appearance: none;
+	outline: none;
+
+	background-color: #CCC;
+	border-radius: 34px;
+
+	&::before {
+		content: '';
+
+		position: absolute;
+
+		width: 16px;
+		height: 16px;
+
+		top: 2px;
+		left: 2px;
+
+		background-color: var(--autoThemeColor);
+
+		border-radius: 50%;
+
+		transition: .1s;
+	}
+
+	&:checked {
+		background-color: #66F;
+
+		&::before {
+			transform: translateX(20px); 
+		}
+	}
+}

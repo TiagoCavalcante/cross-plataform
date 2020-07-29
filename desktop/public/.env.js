@@ -1,0 +1,1 @@
+const HOST = 'https://bearded-marks-96019.herokuapp.com';

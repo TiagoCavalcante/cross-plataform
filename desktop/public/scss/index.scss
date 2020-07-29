@@ -1,0 +1,36 @@
+main {
+	padding: 0 20px;
+}
+
+ul {
+	list-style-type: none;
+}
+
+input {
+	color: #000;
+
+	&::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+		/* "appearance: none" doesn't work on Electron */
+		-webkit-appearance: none;
+		/* margin: 0; doesn't necessary on Electron */
+	}
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	overflow-x: hidden;
+	align-items: stretch;
+
+	& input, & button {
+		display: block;
+		padding: 4px;
+		margin-bottom: 10px;
+		border-radius: 8px;
+	}
+
+	& button {
+		margin: 0 auto 10px;
+	}
+}

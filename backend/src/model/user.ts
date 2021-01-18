@@ -32,7 +32,8 @@ export default class Users {
 		return this.index++;
 	}
 
-	public updateUser(id: number, name: string | undefined, email: string | undefined, number: number | undefined): void {
+	public updateUser(id: number, name?: string, email?: string, number?: number
+	): void {
 		if (name) {
 			this.users[id].name = name;
 		}
